@@ -1,20 +1,16 @@
-SUNNY DAY OREBIĆ — NEW DARK LUXURY REDESIGN
+SUNNY DAY OREBIĆ – DARK LUXURY VERSION
 
-Smjer: inspiriran referentnim Majestic Hotel Pinterest vizualom, ali prilagođen Sunny Day Orebiću i stvarnim fotografijama objekta.
+ZADNJE IZMJENE
+- uklonjeni breadcrumb tekstovi tipa "NASLOVNA / APARTMANI" sa svih HR i EN podstranica
+- ubačen originalni Sunny Day logo koji je dostavljen
+- logo je pripremljen za tamnu navigaciju (zlatno sunce + svijetli natpis)
+- pravi logo je ubačen u navigaciju i footer
+- favicon je izrađen iz zlatnog sunčevog znaka originalnog logotipa
 
-Struktura:
-- HR je glavni jezik (root)
-- EN je u /en/
-- 2 stvarna glavna tipa apartmana s postojećeg weba
-- galerija, lokacija, kontakt, iskustva/izleti i legalne podstranice
-- quick availability forma NE rezervira online; vodi na kontakt/upit
+DEPLOY
+- nema build naredbe
+- sadržaj ovog ZIP-a učitaj direktno u GitHub repo
+- Cloudflare Pages: bez build command-a, root/output = /
 
-Kontakt forma:
-- u assets/js/site-config.js zamijeni YOUR_WEB3FORMS_ACCESS_KEY stvarnim Web3Forms ključem
-
-Cloudflare Pages:
-- bez build command-a
-- output: root projekta
-
-Napomena:
-- Pravne tekstove zamijeniti finalnim tekstom vlasnika prije objave.
+NAPOMENA
+- kontakt forma i dalje koristi postojeću konfiguraciju iz assets/js/site-config.js / forms.js
