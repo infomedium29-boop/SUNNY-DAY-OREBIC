@@ -1,52 +1,19 @@
 
-(function(){
+(() => {
   const config = window.SUNNY_DAY_CONFIG || {};
-  const isHR = location.pathname.includes('/hr/');
-  const forms = document.querySelectorAll('.js-inquiry-form');
-  if (!forms.length) return;
-  const today = new Date().toISOString().split('T')[0];
-  forms.forEach(form => {
-    const statusEl = form.querySelector('.form-status');
-    const arrival = form.querySelector('input[name="arrival"]');
-    const departure = form.querySelector('input[name="departure"]');
-    if (arrival) arrival.min = today;
-    if (departure) departure.min = today;
-    if (arrival && departure) {
-      arrival.addEventListener('change', () => {
-        departure.min = arrival.value || today;
-        if (departure.value && departure.value < arrival.value) departure.value = arrival.value;
-      });
-    }
-    form.addEventListener('submit', async (e) => {
+  document.querySelectorAll('.js-contact-form').forEach(form => {
+    const status = form.querySelector('.form-status');
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const accessInput = form.querySelector('input[name="access_key"]');
-      if (accessInput && config.web3formsAccessKey) accessInput.value = config.web3formsAccessKey;
-      const formData = new FormData(form);
-      const accessKey = formData.get('access_key');
-      if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
-        if (statusEl) statusEl.textContent = (isHR ? 'Prije objave unesite Web3Forms access key u assets/js/site-config.js.' : 'Replace the Web3Forms access key in assets/js/site-config.js before going live.');
+      const key = config.web3formsAccessKey;
+      if (!key || key === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        status.textContent = document.documentElement.lang === 'hr' ? 'Prije objave unesite Web3Forms access key u assets/js/site-config.js.' : 'Add your Web3Forms access key in assets/js/site-config.js before publishing.';
         return;
       }
-      if (submitBtn) submitBtn.disabled = true;
-      if (statusEl) statusEl.textContent = (isHR ? 'Šaljem upit...' : 'Sending your inquiry...');
-      try {
-        const response = await fetch(config.formEndpoint || 'https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await response.json();
-        if (data.success) {
-          form.reset();
-          if (statusEl) statusEl.textContent = (isHR ? 'Hvala — vaš upit je poslan.' : 'Thank you — your inquiry has been sent.');
-        } else {
-          if (statusEl) statusEl.textContent = data.message || (isHR ? 'Došlo je do pogreške. Pokušajte ponovno.' : 'Something went wrong. Please try again.');
-        }
-      } catch (err) {
-        if (statusEl) statusEl.textContent = (isHR ? 'Upit trenutačno nije moguće poslati. Pokušajte ponovno kasnije.' : 'Unable to send right now. Please try again later.');
-      } finally {
-        if (submitBtn) submitBtn.disabled = false;
-      }
+      const fd = new FormData(form); fd.set('access_key', key);
+      const btn=form.querySelector('button[type="submit"]'); btn.disabled=true; status.textContent='...';
+      try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',body:fd});const j=await r.json();if(j.success){form.reset();status.textContent=document.documentElement.lang==='hr'?'Hvala! Upit je uspješno poslan.':'Thank you! Your inquiry was sent.'}else status.textContent=j.message||'Error';}
+      catch(err){status.textContent=document.documentElement.lang==='hr'?'Slanje trenutno nije uspjelo.':'Unable to send right now.'}finally{btn.disabled=false}
     });
   });
 })();
