@@ -1,31 +1,24 @@
+SUNNY DAY OREBIĆ – PREMIUM BILINGUAL WEBSITE
 
-SUNNY DAY OREBIĆ – STATIC WEBSITE PACKAGE
+NOVO U OVOJ VERZIJI
+- potpuno uklonjene krem/bež pozadine
+- nova luksuzna paleta: pearl white / cool grey / deep graphite-petrol / diskretno metalik zlato
+- dodan hrvatski jezik kao potpuna paralelna verzija stranice
+- EN / HR switch nalazi se u navigaciji
+- hrvatske stranice su u folderu /hr/
+- sve postojeće podstranice imaju hrvatsku verziju
 
-Što je napravljeno:
-- potpuno nova premium statička web stranica
-- više stranica i podstranica
-- apartmani + pojedinačne podstranice
-- Experience / izleti podstranice
-- galerija, lokacija, kontakt, legal pages
-- kontakt forma s datumima, brojem gostiju, telefonom i e-mailom
-- moderna animacija pri skrolu i hero slideshow
-- korištene su stvarne fotografije iz dostavljenog ZIP-a (selekcija bez namjernog dupliranja)
+KONTAKT FORMA
+Forma sadrži datum dolaska, datum odlaska, broj gostiju, telefon, e-mail i poruku.
+Za aktivaciju forme otvori assets/js/site-config.js i zamijeni:
+web3formsAccessKey: 'YOUR_WEB3FORMS_ACCESS_KEY'
+svojim stvarnim Web3Forms ključem.
 
-VAŽNO PRIJE OBJAVE
-1) Otvori datoteku: assets/js/site-config.js
-2) Unesi / provjeri:
-   - instagram link
-   - WhatsApp broj ako treba drugi format
-   - ako želiš, promijeni telefon / e-mail / adresu
-3) Za rad forme obavezno zamijeni:
-   web3formsAccessKey: 'YOUR_WEB3FORMS_ACCESS_KEY'
-   svojim stvarnim Web3Forms ključem.
+KONTAKT PODACI
+U assets/js/site-config.js možeš promijeniti telefon, e-mail, WhatsApp, adresu i Instagram.
 
 DEPLOY
-- cijeli sadržaj ovog foldera stavi na GitHub repo
-- spoji repo na Cloudflare Pages
-- build command nije potreban
-- output directory: /
+Cijeli sadržaj foldera postavi u GitHub repo i spoji s Cloudflare Pages.
+Build command nije potreban.
 
-NAPOMENA
-- Legal stranice (Privacy Policy i Terms) su pripremljene kao čisti predlošci i preporuka je ubaciti finalni službeni tekst vlasnika.
+Napomena: Privacy Policy i Terms su dizajnerski pripremljene stranice; prije produkcije ubaci konačni pravni tekst vlasnika.

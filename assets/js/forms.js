@@ -1,6 +1,7 @@
 
 (function(){
   const config = window.SUNNY_DAY_CONFIG || {};
+  const isHR = location.pathname.includes('/hr/');
   const forms = document.querySelectorAll('.js-inquiry-form');
   if (!forms.length) return;
   const today = new Date().toISOString().split('T')[0];
@@ -24,11 +25,11 @@
       const formData = new FormData(form);
       const accessKey = formData.get('access_key');
       if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
-        if (statusEl) statusEl.textContent = 'Replace the Web3Forms access key in assets/js/site-config.js before going live.';
+        if (statusEl) statusEl.textContent = (isHR ? 'Prije objave unesite Web3Forms access key u assets/js/site-config.js.' : 'Replace the Web3Forms access key in assets/js/site-config.js before going live.');
         return;
       }
       if (submitBtn) submitBtn.disabled = true;
-      if (statusEl) statusEl.textContent = 'Sending your inquiry...';
+      if (statusEl) statusEl.textContent = (isHR ? 'Šaljem upit...' : 'Sending your inquiry...');
       try {
         const response = await fetch(config.formEndpoint || 'https://api.web3forms.com/submit', {
           method: 'POST',
@@ -37,12 +38,12 @@
         const data = await response.json();
         if (data.success) {
           form.reset();
-          if (statusEl) statusEl.textContent = 'Thank you — your inquiry has been sent.';
+          if (statusEl) statusEl.textContent = (isHR ? 'Hvala — vaš upit je poslan.' : 'Thank you — your inquiry has been sent.');
         } else {
-          if (statusEl) statusEl.textContent = data.message || 'Something went wrong. Please try again.';
+          if (statusEl) statusEl.textContent = data.message || (isHR ? 'Došlo je do pogreške. Pokušajte ponovno.' : 'Something went wrong. Please try again.');
         }
       } catch (err) {
-        if (statusEl) statusEl.textContent = 'Unable to send right now. Please try again later.';
+        if (statusEl) statusEl.textContent = (isHR ? 'Upit trenutačno nije moguće poslati. Pokušajte ponovno kasnije.' : 'Unable to send right now. Please try again later.');
       } finally {
         if (submitBtn) submitBtn.disabled = false;
       }
